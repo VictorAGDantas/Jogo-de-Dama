@@ -162,12 +162,18 @@ let jogador02 = false
 let vitoriaJog01 = 0
 let vitoriaJog02 = 0
 let numeroAleatorio = 0
-let numeroMaximo = 1000000
+
+let nameJogador01 = prompt("Digite o Nome do Jogador 01: ")
+let nameJogador02 = prompt("Digite o Nome do Jogador 02: ")
+let numeroMaximo = Number(prompt("Digite o maior número que pode ser sorteado: "))
 
 function geradorNumeroAleatorio(maximo) {
     numeroAleatorio = Math.floor(Math.random() * maximo) + 1
     return numeroAleatorio
 }
+
+let menorNumero = 0
+let maiorNumero = numeroMaximo
 
 geradorNumeroAleatorio(numeroMaximo)
 
@@ -190,6 +196,8 @@ function solicitarNumeroJogador (nomeJogador1, nomeJogador2) {
         if (proximaJogada) {
             jogador01 = true
             jogador02 = false
+            menorNumero = 0
+            maiorNumero = numeroMaximo
             geradorNumeroAleatorio(numeroMaximo)
             solicitarNumeroJogador(nomeJogador1, nomeJogador2)
 
@@ -210,10 +218,16 @@ function solicitarNumeroJogador (nomeJogador1, nomeJogador2) {
     } else {
 
         if (novoNumeroUsuario > numeroAleatorio) {
-            console.log("Numero sorteado é menor que " + novoNumeroUsuario)
+            if (novoNumeroUsuario < maiorNumero) {
+                maiorNumero = novoNumeroUsuario
+            }
+            console.log("Numero sorteado é menor que " + novoNumeroUsuario + ". O Numero sorteado está entre " + menorNumero + " ___ " + maiorNumero )
 
         } else {
-            console.log("Numero sorteado é maior que " + novoNumeroUsuario)
+            if (novoNumeroUsuario > menorNumero) {
+                menorNumero = novoNumeroUsuario
+            }
+            console.log("Numero sorteado é maior que " + novoNumeroUsuario + ". O Numero sorteado está entre " + menorNumero + " ___ " + maiorNumero )
         }
 
         jogador01 = !jogador01
@@ -237,5 +251,5 @@ function jogarNovamente () {
 
 }
 
-solicitarNumeroJogador("Natanael", "Victor")
+solicitarNumeroJogador(nameJogador01, nameJogador02)
 
